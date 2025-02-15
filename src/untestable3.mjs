@@ -1,3 +1,4 @@
+//Since we don't know what the file contains we can't exactly test it with full confidence, but we can make a mock file(s) to test the function
 import { readFile } from "node:fs/promises";
 import { parse } from "csv-parse/sync";
 

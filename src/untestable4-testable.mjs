@@ -1,14 +1,10 @@
-//For this to be tested we need a test database, so to make it possible to connect to the db we need to set it up
-// The docker compose is good for this, since we can set the db up and we only need to set the environment variables 
-// So the program knows how to connect to the db
-// Also I will need a counter for the id
-// And a way to clean up the db after the run since currently it is a manually started docker compose test db
 import argon2 from "@node-rs/argon2";
 import pg from "pg";
 
+
 export class PostgresUserDao {
   static instance;
-
+  static currentId=1;
   static getInstance() {
     if (!this.instance) {
       this.instance = new PostgresUserDao();
@@ -49,6 +45,14 @@ export class PostgresUserDao {
        on conflict (user_id) do update
            set password_hash = excluded.password_hash`,
       [user.userId, user.passwordHash]
+    );
+  }
+
+  async delete(userId){
+    await this.db.query(
+      `DELETE FROM users
+        WHERE user_id = $1`,
+      [userId]
     );
   }
 }

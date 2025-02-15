@@ -1,3 +1,5 @@
+//This is hard to test, because of the Math.random-s nature, since we can't determenistically predict the result of the throw
+//The easiest solution to give parameters to diceHandValue so we can mock the throws
 function diceRoll() {
   const min = 1;
   const max = 6;
